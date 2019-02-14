@@ -1,21 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'grdFilter'
+  name: 'gridFilter'
 })
-export class GrdFilterPipe implements PipeTransform {
+export class GridFilterPipe implements PipeTransform {
 
-  transform(items: any, Instructors: string, Status: string, LocationAddress: string, StartDate: string, EndDate: string) {
+  transform(items: any, Instructors: string, Status: string, Location: string, StartDate: string, EndDate: string) {
 
     debugger;
     if (items && items.length) {
       debugger;
       return items.filter(item => {
         debugger;
-        // if(Status == "All"){
-        //   debugger;
-        //  console.log("Pradeep")
-        // }
         if (Instructors && item.Instructors.toLowerCase().indexOf(Instructors.toLowerCase()) === -1) {
           return false;
         }
@@ -23,7 +19,7 @@ export class GrdFilterPipe implements PipeTransform {
         if (Status && item.Status.toUpperCase().indexOf(Status.toUpperCase()) === -1) {
           return false;
         }
-        if (LocationAddress && item.LocationAddress.toLowerCase().indexOf(LocationAddress.toLowerCase()) === -1) {
+        if (Location && item.Location.toLowerCase().indexOf(Location.toLowerCase()) === -1) {
           return false;
         }
         if (StartDate && item.StartDate.toLowerCase().indexOf(StartDate.toLowerCase()) === -1) {
@@ -33,7 +29,7 @@ export class GrdFilterPipe implements PipeTransform {
           return false;
         }
         debugger;
-        
+
         return true;
       })
     }
@@ -48,10 +44,5 @@ export class GrdFilterPipe implements PipeTransform {
 
 
   }
-
-
-
-
-
 
 }
