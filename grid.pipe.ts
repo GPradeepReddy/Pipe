@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'gridFilter'
+  name: 'grdFilter'
 })
-export class GridFilterPipe implements PipeTransform {
-
-  transform(items: any, Instructors: string, Status: string, Location: string, StartDate: string, EndDate: string) {
+export class GrdFilterPipe implements PipeTransform {
+  debugger;
+  transform(items: any, Instructors: string, Status: string, LocationAddress: string, StartDate: string, EndDate: string, SerachValue: string) {
 
     debugger;
     if (items && items.length) {
@@ -19,22 +19,42 @@ export class GridFilterPipe implements PipeTransform {
         if (Status && item.Status.toUpperCase().indexOf(Status.toUpperCase()) === -1) {
           return false;
         }
-        if (Location && item.Location.toLowerCase().indexOf(Location.toLowerCase()) === -1) {
+        if (Status === "Completed") {
+          if (item.Status === "Incompleted") {
+            return false;
+          }
+        }
+        if (LocationAddress && item.LocationAddress.toLowerCase().indexOf(LocationAddress.toLowerCase()) === -1) {
           return false;
         }
-        if (StartDate && item.StartDate.toLowerCase().indexOf(StartDate.toLowerCase()) === -1) {
+
+        let s = new Date(StartDate).getTime();
+        let c = new Date(item.StartDate).getTime();
+
+        if (StartDate && item.StartDate.toLowerCase().indexOf(StartDate.toLowerCase()) === -1 && s > c) {
           return false;
         }
-        if (EndDate && item.EndDate.toLowerCase().indexOf(EndDate.toLowerCase()) === -1) {
+
+        let e = new Date(EndDate).getTime();
+        let d = new Date(item.EndDate).getTime();
+
+        if (EndDate && item.EndDate.toLowerCase().indexOf(EndDate.toLowerCase()) === -1 && e < d) {
           return false;
         }
-        debugger;
+
+
+        if (SerachValue &&
+          item.Instructors.toLowerCase().indexOf(SerachValue.toLowerCase()) === -1 &&
+          item.Status.toLowerCase().indexOf(SerachValue.toLowerCase()) === -1 &&
+          item.LocationAddress.toLowerCase().indexOf(SerachValue.toLowerCase()) === -1) {
+          return false;
+        }
+
+
 
         return true;
       })
     }
-
-
 
 
     else {
@@ -45,4 +65,8 @@ export class GridFilterPipe implements PipeTransform {
 
   }
 
+
 }
+
+
+
