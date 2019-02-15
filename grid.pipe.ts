@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GrdFilterPipe implements PipeTransform {
   debugger;
-  transform(items: any, Instructors: string, Status: string, LocationAddress: string, StartDate: string, EndDate: string, SerachValue: string) {
+  transform(items: any, Instructors: string, Status: string, LocationAddress: string, StartDate: string, EndDate: string, SearchValue: string) {
 
     debugger;
     if (items && items.length) {
@@ -42,15 +42,16 @@ export class GrdFilterPipe implements PipeTransform {
           return false;
         }
 
+        if (SearchValue != undefined && SearchValue != null && SearchValue != "") {
 
-        if (SerachValue &&
-          item.Instructors.toLowerCase().indexOf(SerachValue.toLowerCase()) === -1 &&
-          item.Status.toLowerCase().indexOf(SerachValue.toLowerCase()) === -1 &&
-          item.LocationAddress.toLowerCase().indexOf(SerachValue.toLowerCase()) === -1) {
-          return false;
+          if (item.Instructors.toLowerCase().indexOf(SearchValue.toLowerCase()) === -1 &&
+            item.Status.toLowerCase().indexOf(SearchValue.toLowerCase()) === -1 &&
+            item.LocationAddress.toLowerCase().indexOf(SearchValue.toLowerCase()) === -1 &&
+            item.Title.toLowerCase().indexOf(SearchValue.toLowerCase()) === -1) {
+            return false;
+          }
+
         }
-
-
 
         return true;
       })
